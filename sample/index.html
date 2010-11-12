@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>jspreadsheet</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+    <script type="text/javascript" src="../src/jspreadsheet.js"></script>
+    <style type="text/css">
+        table,td,th { border-collapse:collapse; }
+        td, th { border:1px solid #ccc; padding:0.5em; }
+        th { background:#eee; }
+    </style>
+    <script type="text/javascript">
+        $.ss("http://spreadsheets.google.com/tq?key=0ArNMycobpXr3ckJybUNHVDZ0cEU0SjZvb0prVDhGS2c")
+            .setQuery("select * where B like 'test%'")
+            .setField("time,title,address,foo,bar,buz,hoge")
+            .send(function(success){
+                var table = $("<table />")
+                    .append(
+                        $("<tr />")
+                            .append($("<th />").text("#"))
+                            .append($("<th />").text("title"))
+                            .append($("<th />").text("address"))
+                            .append($("<th />").text("foo"))
+                            .append($("<th />").text("bar"))
+                            .append($("<th />").text("buz"))
+                            .append($("<th />").text("hoge"))
+                    );
+                this.each(function(i){
+                    table
+                        .append($("<tr />")
+                            .append($("<th />").text("Record "+i))
+                            .append($("<td />").text(this.title))
+                            .append($("<td />").text(this.address))
+                            .append($("<td />").text(this.foo))
+                            .append($("<td />").text(this.bar))
+                            .append($("<td />").text(this.buz))
+                            .append($("<td />").text(this.hoge))
+                        );
+                });
+                $("body").append(table);
+            })
+    </script>
+</head>
+<body>
+</body>
+</html>
